@@ -1,6 +1,7 @@
-version: '3.8'
+
 
 services:
+  # 1. Хранилище (MinIO)
   minio:
     image: minio/minio:latest
     container_name: cloud_storage
@@ -17,7 +18,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  
+
+  # 2. Бэкенд (FastAPI)
   backend:
     build: ./backend
     container_name: cloud_backend
@@ -25,10 +27,12 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    # Используем сложный depends_on только там, где критична проверка здоровья (MinIO)
     depends_on:
-      - minio:
+      minio:
         condition: service_healthy
-  
+    
+  # 3. Фронтенд (Streamlit)
   frontend:
     build: ./frontend
     container_name: cloud_frontend
@@ -36,8 +40,9 @@ services:
       - "8501:8501"
     env_file:
       - .env
+    # Используем простой список для зависимостей, чтобы избежать ошибки must be a string
     depends_on:
-      - backend
-
+      - backend 
+      
 volumes:
   minio_data:
