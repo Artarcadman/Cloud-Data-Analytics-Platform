@@ -2,7 +2,7 @@
 
 Облачная платформа для автоматизированного анализа CSV-файлов с использованием микросервисной архитектуры. Проект позволяет загружать данные в защищенное S3-хранилище и мгновенно получать статистический отчет.
 
-## 🏗 Архитектура системы
+## Архитектура системы
 
 Проект разделен на независимые контейнеры.
 
@@ -13,7 +13,7 @@
 
 
 
-## 🛠 Технологический стек
+## Технологический стек
 
 * **Язык:** Python 3.14
 * **API:** FastAPI, HTTPX
@@ -23,7 +23,7 @@
 * **Оркестрация:** Docker, Docker Compose
 * **Облако:** Selectel (Ubuntu VPS)
 
-## Быстрый старт
+## Развертывание 
 
 ### 1. Требования
 * Установленный [Docker](https://docs.docker.com/get-docker/) и [Docker Compose](https://docs.docker.com/compose/install/).
@@ -36,25 +36,27 @@ git clone [https://github.com/Artarcadman/Cloud_analysis.git](https://github.com
 cd Cloud_analysis
 touch .env
 ```
+Содержимое .env файла:
 
+```bash
 MINIO_ROOT_USER=minioadmin
 MINIO_ROOT_PASSWORD=minio_secret_password
 MINIO_DEFAULT_BUCKET=datasets
 ANALYTICS_URL=http://analytics:8001
 # Укажите ваш IP для доступа к бэкенду из браузера
 BACKEND_URL=http://your_server_ip:8000
+```
 
-Запуск:
+
+Команда дял запуска:
 
 ```bash
 docker compose up -d --build
-
+```
 
 
 После запуска сервисы будут доступны по адресам:
 
-Frontend: http://localhost:8501
-
-MinIO UI: http://localhost:9001
-
-Backend API Docs: http://localhost:8000/docs
+* Frontend: http://localhost:8501
+* MinIO UI: http://localhost:9001
+* Backend API Docs: http://localhost:8000/docs
